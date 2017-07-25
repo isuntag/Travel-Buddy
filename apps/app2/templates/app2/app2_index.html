@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Travel Plans</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+  <div class="container">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Travel Plans</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/travels"><span class="glyphicon glyphicon-home"></span></a></li>
+          <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span></a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="jumbotron">
+      <h1 class="text-center">Hello, {{ request.session.name }}!</h1>
+    </div>
+    <div>
+      <table class="table table-striped">
+        <h2>Your Trip Schedules</h2>
+        <thead>
+          <tr>
+            <th>Destination</th>
+            <th>Travel Start Date</th>
+            <th>Travel End Date</th>
+            <th>Plan</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if trips %}
+            {% for trip in trips %}
+              <tr>
+                <td><a href="/travels/destination/{{ trip.id}}">{{ trip.destination }}</a></td>
+                <td>{{ trip.start_date|date:"M d Y" }}</td>
+                <td>{{ trip.end_date|date:"M d Y" }}</td>
+                <td>{{ trip.description }}</td>
+              </tr>
+            {% endfor %}
+          {% endif %}
+        </tbody>
+      </table>
+      <table class="table table-striped">
+        <h2>Other User's Travel Plans</h2>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Destination</th>
+            <th>Travel Start Date</th>
+            <th>Travel End Date</th>
+            <th>Do You Want to Join?</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if other_trips %}
+            {% for trip in other_trips %}
+              <tr>
+                <td>{{trip.creator.name}}</td>
+                <td><a href="/travels/destination/{{ trip.id}}">{{ trip.destination }}</a></td>
+                <td>{{ trip.start_date|date:"M d Y" }}</td>
+                <td>{{ trip.end_date|date:"M d Y" }}</td>
+                <td><a href="/travels/join_trip/{{ trip.id }}">Join</a></td>
+              </tr>
+            {% endfor %}
+          {% endif %}
+        </tbody>
+      </table>
+      <div class="text-center">
+        <a class="btn btn-primary" href="/travels/add">Add Travel Plan</a>
+      </div>
+  </div>
+  </body>
+</html>

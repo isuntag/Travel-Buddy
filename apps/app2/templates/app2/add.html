@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Add Trip Plan</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">Travel Plans</a>
+          </div>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/travels"><span class="glyphicon glyphicon-home"></span></a></li>
+            <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span></a></li>
+          </ul>
+        </div>
+      </nav>
+      <div class="jumbotron">
+        <h1 class="text-center">Add a Trip</h1>
+      </div>
+      <form action="/travels/add_trip" method="post">
+        {% if messages %}
+          {% for message in messages %}
+          <div class="alert alert-danger alert-dismissable">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{ message }}
+          </div>
+          {% endfor %}
+        {% endif %}
+        {% csrf_token %}
+        <div class="form-group">
+          <label class="control-label col-sm-12" for="destination">Destination:</label>
+          <div class="col-sm-12">
+            <input type="text" class="form-control" name="destination" placeholder="destination"><br>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-12" for="description">Description:</label>
+          <div class="col-sm-12">
+            <input type="text" class="form-control" name="description" placeholder="description"><br>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-12" for="travel_from">Travel Date From:</label>
+          <div class="col-sm-12">
+            <input type="date" class="form-control" name="travel_from" placeholder="travel date from"><br>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-12" for="travel_to">Travel Date To:</label>
+          <div class="col-sm-12">
+            <input type="date" class="form-control" name="travel_to" placeholder="travel date to"><br>
+          </div>
+        </div>
+        <div class="form-group col-sm-12">
+          <input type="submit" value="Register" class="btn btn-primary">
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
