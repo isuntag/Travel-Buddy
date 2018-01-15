@@ -13,7 +13,7 @@
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">Travel Plans</a>
+          <a class="navbar-brand" href="/travels">Travel Plans</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
           <li><a href="/travels"><span class="glyphicon glyphicon-home"></span></a></li>
@@ -26,13 +26,14 @@
     </div>
     <div>
       <table class="table table-striped">
-        <h2>Your Trip Schedules</h2>
+        <h2>Your Trips</h2>
         <thead>
           <tr>
             <th>Destination</th>
             <th>Travel Start Date</th>
             <th>Travel End Date</th>
             <th>Plan</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -43,20 +44,29 @@
                 <td>{{ trip.start_date|date:"M d Y" }}</td>
                 <td>{{ trip.end_date|date:"M d Y" }}</td>
                 <td>{{ trip.description }}</td>
+                <td>
+                    {% if trip.creator.id != request.session.id %}
+                        <a href="/travels/leave_trip/{{ trip.id }}/1">Leave</a>
+                    {% endif %}
+                    {% if trip.creator.id == request.session.id %}
+                        <a href="/travels/delete_trip/{{ trip.id }}">Delete</a>
+                    {% endif %}
+                </td>
               </tr>
             {% endfor %}
           {% endif %}
         </tbody>
       </table>
       <table class="table table-striped">
-        <h2>Other User's Travel Plans</h2>
+        <h2>Other Trips</h2>
         <thead>
           <tr>
-            <th>Name</th>
+            <th>Trip Creator</th>
             <th>Destination</th>
             <th>Travel Start Date</th>
             <th>Travel End Date</th>
-            <th>Do You Want to Join?</th>
+            <th>Plan</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -67,7 +77,8 @@
                 <td><a href="/travels/destination/{{ trip.id}}">{{ trip.destination }}</a></td>
                 <td>{{ trip.start_date|date:"M d Y" }}</td>
                 <td>{{ trip.end_date|date:"M d Y" }}</td>
-                <td><a href="/travels/join_trip/{{ trip.id }}">Join</a></td>
+                <td>{{ trip.description }}</td>
+                <td><a href="/travels/join_trip/{{ trip.id }}/1">Join</a></td>
               </tr>
             {% endfor %}
           {% endif %}

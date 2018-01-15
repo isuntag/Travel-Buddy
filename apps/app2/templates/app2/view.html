@@ -1,47 +1,75 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <title>View Trip</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  </head>
-  <body>
+</head>
+<body>
     <div class="container">
-      <nav class="navbar navbar-default">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="#">Travel Plans</a>
-          </div>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="/travels"><span class="glyphicon glyphicon-home"></span></a></li>
-            <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span></a></li>
-          </ul>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/travels">Travel Plans</a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/travels"><span class="glyphicon glyphicon-home"></span></a></li>
+                    <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span></a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="jumbotron text-center">
+            <h1>{{ trip.destination }}</h1>
+            {% if trip.creator.id == request.session.id %}
+            <a class="btn" href="/travels/delete_trip/{{ trip.id }}" title="Delete Trip">Delete</a>
+            {% endif %}
         </div>
-      </nav>
-      <div class="jumbotron">
-        <h1 class="text-center">{{ trip.destination }}</h1>
-      </div>
-      <dl class="dl-horizontal col-sm-6">
-        <h2>Information</h2>
-        <dt>Planned By:</dt>
-        <dd>{{trip.creator.name}}</dd>
-        <dt>Description:</dt>
-        <dd>{{trip.description}}</dd>
-        <dt>Travel Date From:</dt>
-        <dd>{{ trip.start_date|date:"M d Y"}}</dd>
-        <dt>Travel Date To:</dt>
-        <dd>{{trip.end_date|date:"M d Y"}}</dd>
-      </dl>
-      <div class="col-sm-6 text-center">
-        <h2>Other users joining the trip:</h2>
-        {% if trip.participants %}
-          {% for participant in trip.participants.all %}
-            <p>{{ participant.name }}</p>
-          {% endfor %}
-        {% endif %}
-      </div>
-  </body>
+        <dl class="dl-horizontal col-sm-6">
+            <h2>Information</h2>
+            <dt>Planned By:</dt>
+            <dd>{{trip.creator.name}}</dd>
+            <dt>Description:</dt>
+            <dd>{{trip.description}}</dd>
+            <dt>Travel Date From:</dt>
+            <dd>{{ trip.start_date|date:"M d Y"}}</dd>
+            <dt>Travel Date To:</dt>
+            <dd>{{trip.end_date|date:"M d Y"}}</dd>
+        </dl>
+        <div class="col-sm-6 text-center">
+            <h2>Other users joining the trip:</h2>
+            {% if trip.participants %}
+            <table class="table text-center">
+                {% for participant in trip.participants.all %}
+                <tr>
+                    {% if participant.id == request.session.id %}
+                        <td>You</td>
+                    {% endif %}
+                    {% if participant.id != request.session.id %}
+                        <td>{{ participant.name }}</td>
+                        {% if trip.creator.id == request.session.id %}
+                            <td><a class="btn" href="/travels/remove_user/{{ trip.id }}/{{ participant.id }}">Remove</a></td>
+                        {% endif %}
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </table>
+            {% endif %}
+            {% if trip.participants.all.count < 1 %}
+            <p>No one else yet.</p>
+            {% endif %}
+            {% if not participating %}
+            <p><a class="btn" href="/travels/join_trip/{{ trip.id }}/0">Join</a></p>
+            {% endif %}
+            {% if participating and trip.creator.id != request.session.id %}
+            <p><a class="btn" href="/travels/leave_trip/{{ trip.id }}/0">Leave</a></p>
+            {% endif %}
+        </div>
+        <div class="col-sm-12 text-center">
+            <a class="btn btn-primary" href="/travels">Back</a>
+        </div>
+    </div>
+</body>
 </html>

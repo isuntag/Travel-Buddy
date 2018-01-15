@@ -13,7 +13,7 @@
       <nav class="navbar navbar-default">
         <div class="container-fluid">
           <div class="navbar-header">
-            <a class="navbar-brand" href="#">Travel Plans</a>
+            <a class="navbar-brand" href="/travels">Travel Plans</a>
           </div>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/travels"><span class="glyphicon glyphicon-home"></span></a></li>
@@ -37,29 +37,30 @@
         <div class="form-group">
           <label class="control-label col-sm-12" for="destination">Destination:</label>
           <div class="col-sm-12">
-            <input type="text" class="form-control" name="destination" placeholder="destination"><br>
+            <input type="text" class="form-control" name="destination" placeholder="destination" value="{{destination_value}}"><br>
           </div>
         </div>
         <div class="form-group">
           <label class="control-label col-sm-12" for="description">Description:</label>
           <div class="col-sm-12">
-            <input type="text" class="form-control" name="description" placeholder="description"><br>
+            <input type="text" class="form-control" name="description" placeholder="description" value="{{description_value}}"><br>
           </div>
         </div>
         <div class="form-group">
           <label class="control-label col-sm-12" for="travel_from">Travel Date From:</label>
           <div class="col-sm-12">
-            <input type="date" class="form-control" name="travel_from" placeholder="travel date from"><br>
+            <input type="date" class="form-control" name="travel_from" value="{{from_value}}"><br>
           </div>
         </div>
         <div class="form-group">
           <label class="control-label col-sm-12" for="travel_to">Travel Date To:</label>
           <div class="col-sm-12">
-            <input type="date" class="form-control" name="travel_to" placeholder="travel date to"><br>
+            <input type="date" class="form-control" name="travel_to" value="{{to_value}}"><br>
           </div>
         </div>
-        <div class="form-group col-sm-12">
-          <input type="submit" value="Register" class="btn btn-primary">
+        <div class="form-group col-sm-12 text-center">
+          <input type="submit" value="Register" class="btn btn-primary"><br>
+          <a class="btn " href="/travels">Back</a>
         </div>
       </form>
     </div>

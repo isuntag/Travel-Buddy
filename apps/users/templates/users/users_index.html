@@ -13,15 +13,17 @@
       <nav class="navbar navbar-default">
         <div class="container-fluid">
           <div class="navbar-header">
-            <a class="navbar-brand" href="#">Travel Plans</a>
+            <a class="navbar-brand" href="/">Travel Plans</a>
           </div>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/"><span class="glyphicon glyphicon-home"></span></a></li>
           </ul>
         </div>
       </nav>
-      <div class="jumbotron">
-        <h1 class="text-center">Welcome!</h1>
+      <div class="jumbotron text-center">
+        <h1>Travel Plans</h1>
+        <p>This is a simple travel planning application. You can schedule your own trips and join the trips of others.</p>
+        <p>Have fun traveling! <span class="glyphicon glyphicon-plane"></span></p>
       </div>
       <div class="col-sm-12">
       {% if messages %}
@@ -39,13 +41,13 @@
       <div class="form-group">
         <label class="control-label col-sm-12" for="name">Name:</label>
         <div class="col-sm-12">
-          <input type="text" class="form-control" name="name" placeholder="name"><br>
+          <input type="text" class="form-control" name="name" placeholder="name" value="{{r_name}}"><br>
         </div>
       </div>
       <div class="form-group">
         <label class="control-label col-sm-12" for="username">Username:</label>
         <div class="col-sm-12">
-          <input type="text" class="form-control" name="username" placeholder="username"><br>
+          <input type="text" class="form-control" name="username" placeholder="username" value="{{r_username}}"><br>
         </div>
       </div>
       <div class="form-group">
@@ -60,7 +62,7 @@
           <input type="password" class="form-control" name="pw_confirm" placeholder="confirm password"><br>
         </div>
       </div>
-      <div class="form-group col-sm-12">
+      <div class="form-group col-sm-12 text-center">
         <input type="submit" value="Register" class="btn btn-primary">
       </div>
     </form>
@@ -70,7 +72,7 @@
       <div class="form-group">
         <label class="control-label col-sm-12" for="username">Username: </label>
         <div class="col-sm-12">
-          <input type="text" class="form-control" name="username" placeholder="username"><br>
+          <input type="text" class="form-control" name="username" placeholder="username" value="{{username}}"><br>
         </div>
       </div>
       <div class="form-group">
@@ -79,7 +81,7 @@
           <input type="password" class="form-control" name="password" placeholder="password"><br>
         </div>
       </div>
-      <div class="form-group col-sm-12">
+      <div class="form-group col-sm-12 text-center">
         <input type="submit" value="Login" class="btn btn-primary">
       </div>
     </form>
